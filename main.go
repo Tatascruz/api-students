@@ -6,6 +6,8 @@ import (
 	"log/slog"
 	"net/http"
 
+	"github.com/Tatascruz/api-students/db"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -23,10 +25,10 @@ func main() {
 	e.POST("/students", createStudents)
 	e.GET("/students/:id", getStudent)
 	e.PUT("/students/:id", updateStudent)
-	e.DELETE("/students/:id")
+	e.DELETE("/students/:id", deleteStudent)
 
 	// Start server
-	if err := e.Start(":8080"); err != nil && !errors.Is(err, http.ErrServerClosed) {
+	if err := e.Start("127.0.0.1:8080"); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		slog.Error("failed to start server", "error", err)
 	}
 }
@@ -37,6 +39,11 @@ func getStudents(c echo.Context) error {
 }
 
 func createStudents(c echo.Context) error {
+	student := db.Student{}
+	if err := c.Bind(&student); err != nil {
+		return err
+	}
+	db.AddStudent(student)
 	return c.String(http.StatusOK, "Create student")
 }
 
