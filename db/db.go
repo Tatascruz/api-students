@@ -34,8 +34,9 @@ func AddStudent(student Student) {
 	db := Init()
 
 	if result := db.Create(&student); result.Error != nil {
-		fmt.Println("Error to create student")
+		return result.Error
 	}
 
 	fmt.Println("Create student!")
+	return nil
 }
