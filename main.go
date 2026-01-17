@@ -1,9 +1,7 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"log/slog"
 	"net/http"
 
 	"github.com/Tatascruz/api-students/db"
@@ -28,14 +26,17 @@ func main() {
 	e.DELETE("/students/:id", deleteStudent)
 
 	// Start server
-	if err := e.Start("127.0.0.1:8080"); err != nil && !errors.Is(err, http.ErrServerClosed) {
-		slog.Error("failed to start server", "error", err)
-	}
+	e.Logger.Fatal(e.Start(":8080"))
 }
 
 // Handler
 func getStudents(c echo.Context) error {
-	return c.String(http.StatusOK, "List of all students")
+	students, err := db.GetStudents()
+	if err != nil {
+		return c.String(http.StatusNotFound, "Failed to get students")
+	}
+
+	return c.JSON(http.StatusOK, students)
 }
 
 func createStudents(c echo.Context) error {
