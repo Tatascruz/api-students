@@ -42,6 +42,13 @@ func (s *StudentHandler) GetStudents() ([]Student, error) {
 
 }
 
+func (s *StudentHandler) GetStudent(id int) (Student, error) {
+	var student Student
+	err := s.DB.First(&student, id)
+	return student, err.Error
+
+}
+
 func (s *StudentHandler) AddStudent(student Student) error {
 	if result := s.DB.Create(&student); result.Error != nil {
 		log.Error().Msg("Failed to create student")
