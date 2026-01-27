@@ -16,7 +16,7 @@ type Student struct {
 	CPF    int    `json:"cpf"`
 	Email  string `json:"email"`
 	Age    int    `json:"age"`
-	Active bool   `json:"registration"`
+	Active bool   `json:"active"`
 }
 
 func Init() *gorm.DB {
@@ -47,6 +47,9 @@ func (s *StudentHandler) GetStudent(id int) (Student, error) {
 	err := s.DB.First(&student, id)
 	return student, err.Error
 
+}
+func (s *StudentHandler) UpdateStudent(updateStudent Student) error {
+	return s.DB.Save(&updateStudent).Error
 }
 
 func (s *StudentHandler) AddStudent(student Student) error {
