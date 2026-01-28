@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Tatascruz/api-students/db"
+	"github.com/Tatascruz/api-students/shemas"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
@@ -19,7 +19,7 @@ func (api *API) getStudents(c echo.Context) error {
 }
 
 func (api *API) createStudent(c echo.Context) error {
-	student := db.Student{}
+	student := shemas.Student{}
 	if err := c.Bind(&student); err != nil {
 		return err
 	}
@@ -62,7 +62,7 @@ func (api *API) updateStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to get student ID")
 	}
 
-	var recivedStudent db.Student
+	var recivedStudent shemas.Student
 	if err := c.Bind(&recivedStudent); err != nil {
 		return c.String(http.StatusBadRequest, "Invalid body")
 	}
@@ -99,7 +99,7 @@ func (api *API) deleteStudent(c echo.Context) error {
 
 }
 
-func updateStudentInfo(recivedStudent, student db.Student) db.Student {
+func updateStudentInfo(recivedStudent, student shemas.Student) shemas.Student {
 	if recivedStudent.Name != "" {
 		student.Name = recivedStudent.Name
 	}

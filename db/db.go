@@ -4,19 +4,12 @@ import (
 	"github.com/rs/zerolog/log"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	"github.com/Tatascruz/api-students/shemas"
 )
 
 type StudentHandler struct {
 	DB *gorm.DB
-}
-
-type Student struct {
-	gorm.Model
-	Name   string `json:"name"`
-	CPF    int    `json:"cpf"`
-	Email  string `json:"email"`
-	Age    int    `json:"age"`
-	Active bool   `json:"active"`
 }
 
 func Init() *gorm.DB {
@@ -25,7 +18,7 @@ func Init() *gorm.DB {
 		log.Fatal().Err(err).Msgf("Failed to initialize SQLite: %s", err.Error())
 	}
 
-	db.AutoMigrate(&Student{})
+	db.AutoMigrate(&shemas.Student{})
 
 	return db
 
@@ -34,28 +27,7 @@ func Init() *gorm.DB {
 func NewStudentHandler(db *gorm.DB) *StudentHandler {
 	return &StudentHandler{DB: db}
 }
-
-func (s *StudentHandler) GetStudents() ([]Student, error) {
-	var students []Student
-	err := s.DB.Find(&students).Error
-	return students, err
-
-}
-
-func (s *StudentHandler) GetStudent(id int) (Student, error) {
-	var student Student
-	err := s.DB.First(&student, id)
-	return student, err.Error
-
-}
-func (s *StudentHandler) UpdateStudent(updateStudent Student) error {
-	return s.DB.Save(&updateStudent).Error
-}
-
-func (s *StudentHandler) DeleteStudent(student Student) error {
-	return s.DB.Delete(&student).Error
-}
-func (s *StudentHandler) AddStudent(student Student) error {
+func (s *StudentHandler) AddStudent(student shemas.Student) error {
 	if result := s.DB.Create(&student); result.Error != nil {
 		log.Error().Msg("Failed to create student")
 		return result.Error
@@ -63,5 +35,25 @@ func (s *StudentHandler) AddStudent(student Student) error {
 
 	log.Info().Msg("Create student!")
 	return nil
+}
 
+func (s *StudentHandler) GetStudents() ([]shemas.Student, error) {
+	var students []shemas.Student
+	err := s.DB.Find(&students).Error
+	return students, err
+
+}
+
+func (s *StudentHandler) GetStudent(id int) (shemas.Student, error) {
+	var student shemas.Student
+	err := s.DB.First(&student, id)
+	return student, err.Error
+
+}
+func (s *StudentHandler) UpdateStudent(updateStudent shemas.Student) error {
+	return s.DB.Save(&updateStudent).Error
+}
+
+func (s *StudentHandler) DeleteStudent(student shemas.Student) error {
+	return s.DB.Delete(&student).Error
 }
