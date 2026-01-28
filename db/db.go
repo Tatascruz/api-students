@@ -52,6 +52,9 @@ func (s *StudentHandler) UpdateStudent(updateStudent Student) error {
 	return s.DB.Save(&updateStudent).Error
 }
 
+func (s *StudentHandler) DeleteStudent(student Student) error {
+	return s.DB.Delete(&student).Error
+}
 func (s *StudentHandler) AddStudent(student Student) error {
 	if result := s.DB.Create(&student); result.Error != nil {
 		log.Error().Msg("Failed to create student")
