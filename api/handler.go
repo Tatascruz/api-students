@@ -16,7 +16,10 @@ func (api *API) getStudents(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
-	return c.JSON(http.StatusOK, students)
+
+	listOfStudents := map[string][]shemas.StudentResponse{"students": shemas.NewResponse(students)}
+
+	return c.JSON(http.StatusOK, listOfStudents)
 }
 
 func (api *API) createStudent(c echo.Context) error {
@@ -25,24 +28,24 @@ func (api *API) createStudent(c echo.Context) error {
 		return err
 	}
 
-    if err := studentReq.Validate(); err != nil {
+	if err := studentReq.Validate(); err != nil {
 		log.Error().Err(err).Msgf("[api] error validating struct")
-        return c.String(http.StatusBadRequest, "Error validating student")
+		return c.String(http.StatusBadRequest, "Error validating student")
 	}
 
 	student := shemas.Student{
-		Name:    studentReq.Name,
-		Email:   studentReq.Email,
-		CPF:     studentReq.CPF,
-		Age:     studentReq.Age,
+		Name:   studentReq.Name,
+		Email:  studentReq.Email,
+		CPF:    studentReq.CPF,
+		Age:    studentReq.Age,
 		Active: *studentReq.Active,
-    }
+	}
 
 	if err := api.DB.AddStudent(student); err != nil {
 		return c.String(http.StatusInternalServerError, "Error to create student")
 	}
 
-	return c.String(http.StatusOK, "Create student")
+	return c.JSON(http.StatusOK, student)
 }
 
 func (api *API) getStudent(c echo.Context) error {
