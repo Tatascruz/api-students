@@ -1,0 +1,109 @@
+definitions:
+  shemas.StudentResponse:
+    properties:
+      active:
+        type: boolean
+      age:
+        type: integer
+      cpf:
+        type: integer
+      createAt:
+        type: string
+      deleteAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updateAt:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /students:
+    get:
+      description: Retrieve students details
+      parameters:
+      - description: Registration
+        in: path
+        name: register
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/shemas.StudentResponse'
+        "404":
+          description: Not Found
+      summary: Get a list of students
+      tags:
+      - students
+    post:
+      description: Create student
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/shemas.StudentResponse'
+        "400":
+          description: Bad Request
+      summary: Create student
+      tags:
+      - students
+  /students/{id}:
+    delete:
+      description: Delete Students details
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/shemas.StudentResponse'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Delete Student
+      tags:
+      - students
+    get:
+      description: Retrieve students details using ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/shemas.StudentResponse'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get student by ID
+      tags:
+      - students
+    put:
+      description: Update Students details
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/shemas.StudentResponse'
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Update Student
+      tags:
+      - students
+swagger: "2.0"

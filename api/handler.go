@@ -11,6 +11,17 @@ import (
 	"gorm.io/gorm"
 )
 
+// getStudents godoc
+//
+// @Summary          Get a list of students
+// @Description      Retrieve students details
+// @Tags             students
+// @Accpept          jsom
+// @Produce          json
+// @Param            register path    int false   "Registration"
+// @Success          200 {object} shemas.StudentResponse
+// @Failure          404
+// @Router           /students [get]
 func (api *API) getStudents(c echo.Context) error {
 	students, err := api.DB.GetStudents()
 	if err != nil {
@@ -22,6 +33,16 @@ func (api *API) getStudents(c echo.Context) error {
 	return c.JSON(http.StatusOK, listOfStudents)
 }
 
+// createStudent godoc
+//
+// @Summary          Create student
+// @Description      Create student
+// @Tags             students
+// @Accpept          jsom
+// @Produce          json
+// @Success          200 {object} shemas.StudentResponse
+// @Failure          400
+// @Router           /students [post]
 func (api *API) createStudent(c echo.Context) error {
 	studentReq := StudentRequest{}
 	if err := c.Bind(&studentReq); err != nil {
@@ -48,6 +69,17 @@ func (api *API) createStudent(c echo.Context) error {
 	return c.JSON(http.StatusOK, student)
 }
 
+// getStudents godoc
+//
+// @Summary          Get student by ID
+// @Description      Retrieve students details using ID
+// @Tags             students
+// @Accpept          jsom
+// @Produce          json
+// @Success          200 {object} shemas.StudentResponse
+// @Failure          404
+// @Failure          500
+// @Router           /students/{id} [get]
 func (api *API) getStudent(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -66,6 +98,17 @@ func (api *API) getStudent(c echo.Context) error {
 	return c.JSON(http.StatusOK, student)
 }
 
+// updateStudents godoc
+//
+// @Summary          Update Student
+// @Description      Update Students details
+// @Tags             students
+// @Accpept          jsom
+// @Produce          json
+// @Success          200 {object} shemas.StudentResponse
+// @Failure          404
+// @Failure          500
+// @Router           /students/{id} [put]
 func (api *API) updateStudent(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -94,6 +137,17 @@ func (api *API) updateStudent(c echo.Context) error {
 	return c.JSON(http.StatusOK, student)
 }
 
+// deleteStudents godoc
+//
+// @Summary          Delete Student
+// @Description      Delete Students details
+// @Tags             students
+// @Accpept          jsom
+// @Produce          json
+// @Success          200 {object} shemas.StudentResponse
+// @Failure          404
+// @Failure          500
+// @Router           /students/{id} [delete]
 func (api *API) deleteStudent(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
