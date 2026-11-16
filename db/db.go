@@ -27,8 +27,8 @@ func Init() *gorm.DB {
 func NewStudentHandler(db *gorm.DB) *StudentHandler {
 	return &StudentHandler{DB: db}
 }
-func (s *StudentHandler) AddStudent(student shemas.Student) error {
-	if result := s.DB.Create(&student); result.Error != nil {
+func (s *StudentHandler) AddStudent(student *shemas.Student) error {
+	if result := s.DB.Create(student); result.Error != nil {
 		log.Error().Msg("Failed to create student")
 		return result.Error
 	}

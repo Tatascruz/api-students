@@ -62,7 +62,7 @@ func (api *API) createStudent(c echo.Context) error {
 		Active: *studentReq.Active,
 	}
 
-	if err := api.DB.AddStudent(student); err != nil {
+	if err := api.DB.AddStudent(&student); err != nil {
 		return c.String(http.StatusInternalServerError, "Error to create student")
 	}
 
