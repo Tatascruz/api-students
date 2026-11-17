@@ -9,7 +9,7 @@ import (
 type Student struct {
 	gorm.Model
 	Name   string `json:"name"`
-	CPF    int    `json:"cpf"`
+	CPF    string `json:"cpf"`
 	Email  string `json:"email"`
 	Age    int    `json:"age"`
 	Active bool   `json:"active"`
@@ -21,7 +21,7 @@ type StudentResponse struct {
 	UpdateAt  time.Time `json:"updateAt"`
 	DeletedAt time.Time `json:"deleteAt"`
 	Name      string    `json:"name"`
-	CPF       int       `json:"cpf"`
+	CPF       string    `json:"cpf"`
 	Email     string    `json:"email"`
 	Age       int       `json:"age"`
 	Active    bool      `json:"active"`

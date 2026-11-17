@@ -175,7 +175,7 @@ func updateStudentInfo(recivedStudent StudentRequest, student shemas.Student) sh
 	if recivedStudent.Name != "" {
 		student.Name = recivedStudent.Name
 	}
-	if recivedStudent.CPF > 0 {
+	if recivedStudent.CPF != "" {
 		student.CPF = recivedStudent.CPF
 	}
 	if recivedStudent.Email != "" {
