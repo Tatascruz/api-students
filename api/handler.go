@@ -25,7 +25,8 @@ import (
 func (api *API) getStudents(c echo.Context) error {
 	students, err := api.DB.GetStudents()
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err)
+		log.Error().Err(err).Msg("[api] error getting students")
+		return c.String(http.StatusInternalServerError, "Failed to get students")
 	}
 
 	listOfStudents := map[string][]shemas.StudentResponse{"students": shemas.NewResponse(students)}
@@ -66,7 +67,7 @@ func (api *API) createStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Error to create student")
 	}
 
-	return c.JSON(http.StatusOK, student)
+	return c.JSON(http.StatusCreated, student)
 }
 
 // getStudents godoc
