@@ -83,7 +83,7 @@ func (api *API) createStudent(c echo.Context) error {
 func (api *API) getStudent(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Failed to get student ID")
+		return c.String(http.StatusBadRequest, "Invalid student ID")
 	}
 
 	student, err := api.DB.GetStudent(id)
@@ -112,7 +112,7 @@ func (api *API) getStudent(c echo.Context) error {
 func (api *API) updateStudent(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Failed to get student ID")
+		return c.String(http.StatusBadRequest, "Invalid student ID")
 	}
 
 	updatingStudent, err := api.DB.GetStudent(id)
@@ -151,7 +151,7 @@ func (api *API) updateStudent(c echo.Context) error {
 func (api *API) deleteStudent(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Failed to get student ID")
+		return c.String(http.StatusBadRequest, "Invalid student ID")
 	}
 
 	student, err := api.DB.GetStudent(id)
