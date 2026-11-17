@@ -123,7 +123,7 @@ func (api *API) updateStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to get student ID")
 	}
 
-	var recivedStudent shemas.Student
+	var recivedStudent StudentRequest
 	if err := c.Bind(&recivedStudent); err != nil {
 		return c.String(http.StatusBadRequest, "Invalid body")
 	}
@@ -171,7 +171,7 @@ func (api *API) deleteStudent(c echo.Context) error {
 
 }
 
-func updateStudentInfo(recivedStudent, student shemas.Student) shemas.Student {
+func updateStudentInfo(recivedStudent StudentRequest, student shemas.Student) shemas.Student {
 	if recivedStudent.Name != "" {
 		student.Name = recivedStudent.Name
 	}
@@ -184,8 +184,8 @@ func updateStudentInfo(recivedStudent, student shemas.Student) shemas.Student {
 	if recivedStudent.Age > 0 {
 		student.Age = recivedStudent.Age
 	}
-	if recivedStudent.Active != student.Active {
-		student.Active = recivedStudent.Active
+	if recivedStudent.Active != nil {
+		student.Active = *recivedStudent.Active
 	}
 	return student
 }
