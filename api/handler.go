@@ -121,7 +121,7 @@ func (api *API) updateStudent(c echo.Context) error {
 		return c.String(http.StatusNotFound, "Student not found")
 	}
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Failed to get student ID")
+		return c.String(http.StatusInternalServerError, "Failed to get student")
 	}
 
 	var recivedStudent StudentRequest
@@ -132,7 +132,7 @@ func (api *API) updateStudent(c echo.Context) error {
 	student := updateStudentInfo(recivedStudent, updatingStudent)
 
 	if err := api.DB.UpdateStudent(student); err != nil {
-		return c.String(http.StatusInternalServerError, "Failed to save student ID")
+		return c.String(http.StatusInternalServerError, "Failed to save student")
 	}
 
 	return c.JSON(http.StatusOK, student)
@@ -161,7 +161,7 @@ func (api *API) deleteStudent(c echo.Context) error {
 	}
 
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Failed to get student ID")
+		return c.String(http.StatusInternalServerError, "Failed to get student")
 	}
 
 	if err := api.DB.DeleteStudent(student); err != nil {
