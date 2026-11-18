@@ -27,7 +27,7 @@ func NewServer() *API {
 	e.Use(middleware.RequestLogger())
 	e.Use(middleware.Recover())
 
-	e.GET("/swargger/*", echoSwagger.WrapHandler)
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	database := db.Init()
 	studentDB := db.NewStudentHandler(database)
