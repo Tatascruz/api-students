@@ -17,9 +17,8 @@ type Student struct {
 
 type StudentResponse struct {
 	ID        int       `json:"id"`
-	CreateAt  time.Time `json:"createAt"`
-	UpdateAt  time.Time `json:"updateAt"`
-	DeletedAt time.Time `json:"deleteAt"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 	Name      string    `json:"name"`
 	CPF       string    `json:"cpf"`
 	Email     string    `json:"email"`
@@ -27,21 +26,24 @@ type StudentResponse struct {
 	Active    bool      `json:"active"`
 }
 
+func NewStudentResponse(student Student) StudentResponse {
+	return StudentResponse{
+		ID:        int(student.ID),
+		CreatedAt: student.CreatedAt,
+		UpdatedAt: student.UpdatedAt,
+		Name:      student.Name,
+		CPF:       student.CPF,
+		Email:     student.Email,
+		Age:       student.Age,
+		Active:    student.Active,
+	}
+}
+
 func NewResponse(students []Student) []StudentResponse {
 	studentsResponse := []StudentResponse{}
 
 	for _, student := range students {
-		studentResponse := StudentResponse{
-			ID:       int(student.ID),
-			CreateAt: student.CreatedAt,
-			UpdateAt: student.UpdatedAt,
-			Name:     student.Name,
-			CPF:      student.CPF,
-			Email:    student.Email,
-			Age:      student.Age,
-			Active:   student.Active,
-		}
-		studentsResponse = append(studentsResponse, studentResponse)
+		studentsResponse = append(studentsResponse, NewStudentResponse(student))
 	}
 	return studentsResponse
 }

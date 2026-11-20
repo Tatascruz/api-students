@@ -67,7 +67,7 @@ func (api *API) createStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Error to create student")
 	}
 
-	return c.JSON(http.StatusCreated, student)
+	return c.JSON(http.StatusCreated, shemas.NewStudentResponse(student))
 }
 
 // getStudents godoc
@@ -96,7 +96,7 @@ func (api *API) getStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to get student")
 	}
 
-	return c.JSON(http.StatusOK, student)
+	return c.JSON(http.StatusOK, shemas.NewStudentResponse(student))
 }
 
 // updateStudents godoc
@@ -135,7 +135,7 @@ func (api *API) updateStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to save student")
 	}
 
-	return c.JSON(http.StatusOK, student)
+	return c.JSON(http.StatusOK, shemas.NewStudentResponse(student))
 }
 
 // deleteStudents godoc
@@ -168,8 +168,7 @@ func (api *API) deleteStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to delete student")
 	}
 
-	return c.JSON(http.StatusOK, student)
-
+	return c.JSON(http.StatusOK, shemas.NewStudentResponse(student))
 }
 
 func updateStudentInfo(recivedStudent StudentRequest, student shemas.Student) shemas.Student {
