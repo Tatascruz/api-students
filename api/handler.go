@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Tatascruz/api-students/shemas"
+	"github.com/Tatascruz/api-students/schemas"
 	"github.com/labstack/echo/v4"
 	"github.com/rs/zerolog/log"
 	"gorm.io/gorm"
@@ -20,7 +20,7 @@ import (
 // @Accpept          jsom
 // @Produce          json
 // @Param            register path    int false   "Registration"
-// @Success          200 {object} shemas.StudentResponse
+// @Success          200 {object} schemas.StudentResponse
 // @Failure          404
 // @Router           /students [get]
 func (api *API) getStudents(c echo.Context) error {
@@ -30,7 +30,7 @@ func (api *API) getStudents(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to get students")
 	}
 
-	listOfStudents := map[string][]shemas.StudentResponse{"students": shemas.NewResponse(students)}
+	listOfStudents := map[string][]schemas.StudentResponse{"students": schemas.NewResponse(students)}
 
 	return c.JSON(http.StatusOK, listOfStudents)
 }
@@ -42,7 +42,7 @@ func (api *API) getStudents(c echo.Context) error {
 // @Tags             students
 // @Accpept          jsom
 // @Produce          json
-// @Success          200 {object} shemas.StudentResponse
+// @Success          200 {object} schemas.StudentResponse
 // @Failure          400
 // @Router           /students [post]
 func (api *API) createStudent(c echo.Context) error {
@@ -56,7 +56,7 @@ func (api *API) createStudent(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Error validating student")
 	}
 
-	student := shemas.Student{
+	student := schemas.Student{
 		Name:   studentReq.Name,
 		Email:  studentReq.Email,
 		CPF:    studentReq.CPF,
@@ -70,7 +70,7 @@ func (api *API) createStudent(c echo.Context) error {
 		}
 		return c.String(http.StatusInternalServerError, "Error to create student")
 	}
-	return c.JSON(http.StatusCreated, shemas.NewStudentResponse(student))
+	return c.JSON(http.StatusCreated, schemas.NewStudentResponse(student))
 }
 
 // getStudents godoc
@@ -80,7 +80,7 @@ func (api *API) createStudent(c echo.Context) error {
 // @Tags             students
 // @Accpept          jsom
 // @Produce          json
-// @Success          200 {object} shemas.StudentResponse
+// @Success          200 {object} schemas.StudentResponse
 // @Failure          404
 // @Failure          500
 // @Router           /students/{id} [get]
@@ -99,7 +99,7 @@ func (api *API) getStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to get student")
 	}
 
-	return c.JSON(http.StatusOK, shemas.NewStudentResponse(student))
+	return c.JSON(http.StatusOK, schemas.NewStudentResponse(student))
 }
 
 // updateStudents godoc
@@ -109,7 +109,7 @@ func (api *API) getStudent(c echo.Context) error {
 // @Tags             students
 // @Accpept          jsom
 // @Produce          json
-// @Success          200 {object} shemas.StudentResponse
+// @Success          200 {object} schemas.StudentResponse
 // @Failure          404
 // @Failure          500
 // @Router           /students/{id} [put]
@@ -138,7 +138,7 @@ func (api *API) updateStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to save student")
 	}
 
-	return c.JSON(http.StatusOK, shemas.NewStudentResponse(student))
+	return c.JSON(http.StatusOK, schemas.NewStudentResponse(student))
 }
 
 // deleteStudents godoc
@@ -148,7 +148,7 @@ func (api *API) updateStudent(c echo.Context) error {
 // @Tags             students
 // @Accpept          jsom
 // @Produce          json
-// @Success          200 {object} shemas.StudentResponse
+// @Success          200 {object} schemas.StudentResponse
 // @Failure          404
 // @Failure          500
 // @Router           /students/{id} [delete]
@@ -171,10 +171,10 @@ func (api *API) deleteStudent(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to delete student")
 	}
 
-	return c.JSON(http.StatusOK, shemas.NewStudentResponse(student))
+	return c.JSON(http.StatusOK, schemas.NewStudentResponse(student))
 }
 
-func updateStudentInfo(recivedStudent StudentRequest, student shemas.Student) shemas.Student {
+func updateStudentInfo(recivedStudent StudentRequest, student schemas.Student) schemas.Student {
 	if recivedStudent.Name != "" {
 		student.Name = recivedStudent.Name
 	}

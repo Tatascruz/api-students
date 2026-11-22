@@ -5,7 +5,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/Tatascruz/api-students/shemas"
+	"github.com/Tatascruz/api-students/schemas"
 )
 
 type StudentHandler struct {
@@ -18,7 +18,7 @@ func Init() *gorm.DB {
 		log.Fatal().Err(err).Msgf("Failed to initialize SQLite: %s", err.Error())
 	}
 
-	if err := db.AutoMigrate(&shemas.Student{}); err != nil {
+	if err := db.AutoMigrate(&schemas.Student{}); err != nil {
 		log.Fatal().Err(err).Msg("Failed to migrate database")
 	}
 
@@ -29,7 +29,7 @@ func Init() *gorm.DB {
 func NewStudentHandler(db *gorm.DB) *StudentHandler {
 	return &StudentHandler{DB: db}
 }
-func (s *StudentHandler) AddStudent(student *shemas.Student) error {
+func (s *StudentHandler) AddStudent(student *schemas.Student) error {
 	if result := s.DB.Create(student); result.Error != nil {
 		log.Error().Msg("Failed to create student")
 		return result.Error
@@ -39,23 +39,23 @@ func (s *StudentHandler) AddStudent(student *shemas.Student) error {
 	return nil
 }
 
-func (s *StudentHandler) GetStudents() ([]shemas.Student, error) {
-	var students []shemas.Student
+func (s *StudentHandler) GetStudents() ([]schemas.Student, error) {
+	var students []schemas.Student
 	err := s.DB.Find(&students).Error
 	return students, err
 
 }
 
-func (s *StudentHandler) GetStudent(id int) (shemas.Student, error) {
-	var student shemas.Student
+func (s *StudentHandler) GetStudent(id int) (schemas.Student, error) {
+	var student schemas.Student
 	err := s.DB.First(&student, id)
 	return student, err.Error
 
 }
-func (s *StudentHandler) UpdateStudent(updateStudent shemas.Student) error {
+func (s *StudentHandler) UpdateStudent(updateStudent schemas.Student) error {
 	return s.DB.Save(&updateStudent).Error
 }
 
-func (s *StudentHandler) DeleteStudent(student shemas.Student) error {
+func (s *StudentHandler) DeleteStudent(student schemas.Student) error {
 	return s.DB.Delete(&student).Error
 }

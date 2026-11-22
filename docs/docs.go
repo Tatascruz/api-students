@@ -37,7 +37,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "404": {
@@ -58,7 +58,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "400": {
@@ -81,7 +81,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "404": {
@@ -105,7 +105,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "404": {
@@ -129,7 +129,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "404": {
@@ -143,7 +143,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "shemas.StudentResponse": {
+        "schemas.StudentResponse": {
             "type": "object",
             "properties": {
                 "active": {

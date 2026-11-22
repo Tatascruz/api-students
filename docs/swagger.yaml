@@ -1,5 +1,5 @@
 definitions:
-  shemas.StudentResponse:
+  schemas.StudentResponse:
     properties:
       active:
         type: boolean
@@ -37,7 +37,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/shemas.StudentResponse'
+            $ref: '#/definitions/schemas.StudentResponse'
         "404":
           description: Not Found
       summary: Get a list of students
@@ -51,7 +51,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/shemas.StudentResponse'
+            $ref: '#/definitions/schemas.StudentResponse'
         "400":
           description: Bad Request
       summary: Create student
@@ -66,7 +66,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/shemas.StudentResponse'
+            $ref: '#/definitions/schemas.StudentResponse'
         "404":
           description: Not Found
         "500":
@@ -82,7 +82,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/shemas.StudentResponse'
+            $ref: '#/definitions/schemas.StudentResponse'
         "404":
           description: Not Found
         "500":
@@ -98,7 +98,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/shemas.StudentResponse'
+            $ref: '#/definitions/schemas.StudentResponse'
         "404":
           description: Not Found
         "500":

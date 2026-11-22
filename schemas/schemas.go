@@ -1,4 +1,4 @@
-package shemas
+package schemas
 
 import (
 	"time"

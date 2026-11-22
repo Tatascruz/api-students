@@ -26,7 +26,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "404": {
@@ -47,7 +47,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "400": {
@@ -70,7 +70,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "404": {
@@ -94,7 +94,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "404": {
@@ -118,7 +118,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/shemas.StudentResponse"
+                            "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "404": {
@@ -132,7 +132,7 @@
         }
     },
     "definitions": {
-        "shemas.StudentResponse": {
+        "schemas.StudentResponse": {
             "type": "object",
             "properties": {
                 "active": {
