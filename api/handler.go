@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/Tatascruz/api-students/shemas"
 	"github.com/labstack/echo/v4"
@@ -64,9 +65,11 @@ func (api *API) createStudent(c echo.Context) error {
 	}
 
 	if err := api.DB.AddStudent(&student); err != nil {
+		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
+			return c.String(http.StatusConflict, "CPF or email already registered")
+		}
 		return c.String(http.StatusInternalServerError, "Error to create student")
 	}
-
 	return c.JSON(http.StatusCreated, shemas.NewStudentResponse(student))
 }
 

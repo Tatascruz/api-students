@@ -9,8 +9,8 @@ import (
 type Student struct {
 	gorm.Model
 	Name   string `json:"name"`
-	CPF    string `json:"cpf"`
-	Email  string `json:"email"`
+	CPF    string `json:"cpf" gorm:"uniqueIndex"`
+	Email  string `json:"email" gorm:"uniqueIndex"`
 	Age    int    `json:"age"`
 	Active bool   `json:"active"`
 }
