@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   schemas.StudentResponse:
     properties:
@@ -6,10 +7,8 @@ definitions:
       age:
         type: integer
       cpf:
-        type: integer
-      createAt:
         type: string
-      deleteAt:
+      createdAt:
         type: string
       email:
         type: string
@@ -17,20 +16,20 @@ definitions:
         type: integer
       name:
         type: string
-      updateAt:
+      updatedAt:
         type: string
     type: object
+host: localhost:8080
 info:
   contact: {}
+  title: Student API
+  version: "1.0"
 paths:
   /students:
     get:
+      consumes:
+      - application/json
       description: Retrieve students details
-      parameters:
-      - description: Registration
-        in: path
-        name: register
-        type: integer
       produces:
       - application/json
       responses:
@@ -38,27 +37,33 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/schemas.StudentResponse'
-        "404":
-          description: Not Found
+        "500":
+          description: Internal Server Error
       summary: Get a list of students
       tags:
       - students
     post:
+      consumes:
+      - application/json
       description: Create student
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
             $ref: '#/definitions/schemas.StudentResponse'
         "400":
           description: Bad Request
+        "409":
+          description: Conflict
       summary: Create student
       tags:
       - students
   /students/{id}:
     delete:
+      consumes:
+      - application/json
       description: Delete Students details
       produces:
       - application/json
@@ -75,6 +80,8 @@ paths:
       tags:
       - students
     get:
+      consumes:
+      - application/json
       description: Retrieve students details using ID
       produces:
       - application/json
@@ -91,6 +98,8 @@ paths:
       tags:
       - students
     put:
+      consumes:
+      - application/json
       description: Update Students details
       produces:
       - application/json
@@ -106,4 +115,6 @@ paths:
       summary: Update Student
       tags:
       - students
+schemes:
+- http
 swagger: "2.0"

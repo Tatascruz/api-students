@@ -1,12 +1,22 @@
 {
+    "schemes": [
+        "http"
+    ],
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "title": "Student API",
+        "contact": {},
+        "version": "1.0"
     },
+    "host": "localhost:8080",
+    "basePath": "/",
     "paths": {
         "/students": {
             "get": {
                 "description": "Retrieve students details",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -14,14 +24,6 @@
                     "students"
                 ],
                 "summary": "Get a list of students",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Registration",
-                        "name": "register",
-                        "in": "path"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -29,13 +31,16 @@
                             "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
-                    "404": {
-                        "description": "Not Found"
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             },
             "post": {
                 "description": "Create student",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -44,14 +49,17 @@
                 ],
                 "summary": "Create student",
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     }
                 }
             }
@@ -59,6 +67,9 @@
         "/students/{id}": {
             "get": {
                 "description": "Retrieve students details using ID",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -83,6 +94,9 @@
             },
             "put": {
                 "description": "Update Students details",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -107,6 +121,9 @@
             },
             "delete": {
                 "description": "Delete Students details",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -142,12 +159,9 @@
                     "type": "integer"
                 },
                 "cpf": {
-                    "type": "integer"
-                },
-                "createAt": {
                     "type": "string"
                 },
-                "deleteAt": {
+                "createdAt": {
                     "type": "string"
                 },
                 "email": {
@@ -159,7 +173,7 @@
                 "name": {
                     "type": "string"
                 },
-                "updateAt": {
+                "updatedAt": {
                     "type": "string"
                 }
             }

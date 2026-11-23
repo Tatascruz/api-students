@@ -12,16 +12,15 @@ import (
 	"gorm.io/gorm"
 )
 
-// getStudents godoc
+// getStudent godoc
 //
 // @Summary          Get a list of students
 // @Description      Retrieve students details
 // @Tags             students
-// @Accpept          jsom
+// @Accept           json
 // @Produce          json
-// @Param            register path    int false   "Registration"
 // @Success          200 {object} schemas.StudentResponse
-// @Failure          404
+// @Failure          500
 // @Router           /students [get]
 func (api *API) getStudents(c echo.Context) error {
 	students, err := api.DB.GetStudents()
@@ -40,10 +39,11 @@ func (api *API) getStudents(c echo.Context) error {
 // @Summary          Create student
 // @Description      Create student
 // @Tags             students
-// @Accpept          jsom
+// @Accept           json
 // @Produce          json
-// @Success          200 {object} schemas.StudentResponse
+// @Success          201 {object} schemas.StudentResponse
 // @Failure          400
+// @Failure          409
 // @Router           /students [post]
 func (api *API) createStudent(c echo.Context) error {
 	studentReq := StudentRequest{}
@@ -78,7 +78,7 @@ func (api *API) createStudent(c echo.Context) error {
 // @Summary          Get student by ID
 // @Description      Retrieve students details using ID
 // @Tags             students
-// @Accpept          jsom
+// @Accept           json
 // @Produce          json
 // @Success          200 {object} schemas.StudentResponse
 // @Failure          404
@@ -107,7 +107,7 @@ func (api *API) getStudent(c echo.Context) error {
 // @Summary          Update Student
 // @Description      Update Students details
 // @Tags             students
-// @Accpept          jsom
+// @Accept           json
 // @Produce          json
 // @Success          200 {object} schemas.StudentResponse
 // @Failure          404
@@ -146,7 +146,7 @@ func (api *API) updateStudent(c echo.Context) error {
 // @Summary          Delete Student
 // @Description      Delete Students details
 // @Tags             students
-// @Accpept          jsom
+// @Accept           json
 // @Produce          json
 // @Success          200 {object} schemas.StudentResponse
 // @Failure          404

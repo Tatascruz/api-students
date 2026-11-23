@@ -18,6 +18,9 @@ const docTemplate = `{
         "/students": {
             "get": {
                 "description": "Retrieve students details",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -25,14 +28,6 @@ const docTemplate = `{
                     "students"
                 ],
                 "summary": "Get a list of students",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Registration",
-                        "name": "register",
-                        "in": "path"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -40,13 +35,16 @@ const docTemplate = `{
                             "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
-                    "404": {
-                        "description": "Not Found"
+                    "500": {
+                        "description": "Internal Server Error"
                     }
                 }
             },
             "post": {
                 "description": "Create student",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -55,14 +53,17 @@ const docTemplate = `{
                 ],
                 "summary": "Create student",
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/schemas.StudentResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     }
                 }
             }
@@ -70,6 +71,9 @@ const docTemplate = `{
         "/students/{id}": {
             "get": {
                 "description": "Retrieve students details using ID",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -94,6 +98,9 @@ const docTemplate = `{
             },
             "put": {
                 "description": "Update Students details",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -118,6 +125,9 @@ const docTemplate = `{
             },
             "delete": {
                 "description": "Delete Students details",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -153,12 +163,9 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "cpf": {
-                    "type": "integer"
-                },
-                "createAt": {
                     "type": "string"
                 },
-                "deleteAt": {
+                "createdAt": {
                     "type": "string"
                 },
                 "email": {
@@ -170,7 +177,7 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "updateAt": {
+                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -180,11 +187,11 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
-	Schemes:          []string{},
-	Title:            "",
+	Version:          "1.0",
+	Host:             "localhost:8080",
+	BasePath:         "/",
+	Schemes:          []string{"http"},
+	Title:            "Student API",
 	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
