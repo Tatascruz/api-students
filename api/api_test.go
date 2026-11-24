@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -108,5 +109,38 @@ func TestGetStudentInvalidID(t *testing.T) {
 
 	if rec.Code != http.StatusBadRequest {
 		t.Fatalf("esperava status 400 para id inválido, veio %d", rec.Code)
+	}
+}
+
+func TestGetStudent(t *testing.T) {
+	api := newTestAPI(t)
+
+	created := doRequest(api, http.MethodPost, "/students", validStudent)
+	var student schemas.StudentResponse
+	if err := json.Unmarshal(created.Body.Bytes(), &student); err != nil {
+		t.Fatalf("a resposta do cadastro não é um JSON válido: %v", err)
+	}
+
+	rec := doRequest(api, http.MethodGet, "/students/"+strconv.Itoa(student.ID), "")
+	if rec.Code != http.StatusOK {
+		t.Fatalf("esperava status 200, veio %d", rec.Code)
+	}
+
+	var found schemas.StudentResponse
+	if err := json.Unmarshal(rec.Body.Bytes(), &found); err != nil {
+		t.Fatalf("a resposta da busca não é um JSON válido: %v", err)
+	}
+	if found.Name != "Ana" {
+		t.Errorf("esperava o nome Ana, veio %q", found.Name)
+	}
+}
+
+func TestGetStudentNotFound(t *testing.T) {
+	api := newTestAPI(t)
+
+	rec := doRequest(api, http.MethodGet, "/students/999", "")
+
+	if rec.Code != http.StatusNotFound {
+		t.Fatalf("esperava status 404, veio %d", rec.Code)
 	}
 }
