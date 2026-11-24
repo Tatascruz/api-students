@@ -96,7 +96,30 @@ go run github.com/swaggo/swag/cmd/swag@latest init -g api/api.go
 
 ## Próximos passos
 
-- Testes automáticos
+## Testes
+
+O projeto tem testes automáticos da API, que cobrem:
+
+- listar alunos com o banco vazio (200)
+- cadastrar um aluno (201), conferindo o id e o CPF com zero à esquerda
+- cadastrar um aluno repetido (409)
+- buscar com um id inválido (400)
+
+Para rodar:
+
+```bash
+go test ./...
+```
+
+Para ver o detalhe de cada teste:
+
+```bash
+go test ./api/ -v
+```
+
+Os testes usam um banco temporário, então o seu `student.db` não é alterado.
+
+- Mais testes (buscar, atualizar e apagar)
 - Dockerfile
 
 ## Autora
