@@ -144,3 +144,56 @@ func TestGetStudentNotFound(t *testing.T) {
 		t.Fatalf("esperava status 404, veio %d", rec.Code)
 	}
 }
+
+// createValidStudent cadastra o aluno de exemplo e devolve o id dele.
+func createValidStudent(t *testing.T, api *API) int {
+	t.Helper()
+
+	rec := doRequest(api, http.MethodPost, "/students", validStudent)
+	if rec.Code != http.StatusCreated {
+		t.Fatalf("o cadastro deveria dar 201, veio %d", rec.Code)
+	}
+
+	var student schemas.StudentResponse
+	if err := json.Unmarshal(rec.Body.Bytes(), &student); err != nil {
+		t.Fatalf("a resposta do cadastro não é um JSON válido: %v", err)
+	}
+	return student.ID
+}
+
+func TestUpdateStudentKeepsActive(t *testing.T) {
+	api := newTestAPI(t)
+	id := createValidStudent(t, api)
+
+	rec := doRequest(api, http.MethodPut, "/students/"+strconv.Itoa(id), `{"name":"Ana Maria"}`)
+	if rec.Code != http.StatusOK {
+		t.Fatalf("esperava status 200, veio %d", rec.Code)
+	}
+
+	var updated schemas.StudentResponse
+	if err := json.Unmarshal(rec.Body.Bytes(), &updated); err != nil {
+		t.Fatalf("a resposta da atualização não é um JSON válido: %v", err)
+	}
+	if updated.Name != "Ana Maria" {
+		t.Errorf("esperava o nome Ana Maria, veio %q", updated.Name)
+	}
+	if !updated.Active {
+		t.Error("o aluno foi desativado sem querer: o active deveria continuar true")
+	}
+}
+
+func TestDeleteStudent(t *testing.T) {
+	api := newTestAPI(t)
+	id := createValidStudent(t, api)
+	path := "/students/" + strconv.Itoa(id)
+
+	rec := doRequest(api, http.MethodDelete, path, "")
+	if rec.Code != http.StatusOK {
+		t.Fatalf("esperava status 200 ao apagar, veio %d", rec.Code)
+	}
+
+	after := doRequest(api, http.MethodGet, path, "")
+	if after.Code != http.StatusNotFound {
+		t.Fatalf("depois de apagar, esperava 404 na busca, veio %d", after.Code)
+	}
+}
