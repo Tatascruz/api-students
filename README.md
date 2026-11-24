@@ -103,7 +103,10 @@ O projeto tem testes automáticos da API, que cobrem:
 - listar alunos com o banco vazio (200)
 - cadastrar um aluno (201), conferindo o id e o CPF com zero à esquerda
 - cadastrar um aluno repetido (409)
+- buscar um aluno que existe (200) e um que não existe (404)
 - buscar com um id inválido (400)
+- atualizar só o nome, mantendo o `active` (200)
+- apagar um aluno (200) e conferir que ele some da busca (404)
 
 Para rodar:
 
@@ -119,7 +122,7 @@ go test ./api/ -v
 
 Os testes usam um banco temporário, então o seu `student.db` não é alterado.
 
-- Mais testes (buscar, atualizar e apagar)
+- Mais testes (por exemplo, atualizar com dados inválidos)
 - Dockerfile
 
 ## Autora
